@@ -7,6 +7,7 @@
 #include <dirent.h>
 #include <unistd.h>
 #include <ncurses.h>
+#include <iconv.h>
 
 #include "common.h"
 
@@ -17,9 +18,123 @@
 int max_x, max_y;  
 int pid;
 char pids[10];
+int codetable;
 
+// prototypes
 void S(char *str);
 void newline();
+
+// functions
+void utf8_to_koi(char *str_i, char *str_o)
+{
+	iconv_t cd;
+	size_t len_i, len_o = BUFFERSIZE*2;
+	size_t i;
+
+	if ((cd = iconv_open("KOI8-R", "UTF-8")) == (iconv_t) - 1)
+	{
+		printf("utf8_to_koi: iconv_open error\n");
+		return;
+	}
+	len_i = strlen(str_i);
+	if ((i=iconv(cd, &str_i, &len_i, &str_o, &len_o)) == (size_t) - 1)
+	{
+		printf("utf8_to_koi: iconv error\n");
+		// return;
+	}
+	if (iconv_close(cd) == -1)
+	{
+		printf("utf8_to_koi: iconv_close error\n");
+		return;
+	}
+}
+
+void koi_to_utf8(char *str_i, char *str_o)
+{
+	iconv_t cd;
+	size_t len_i, len_o = BUFFERSIZE*2;
+	size_t i;
+
+	if ((cd = iconv_open("UTF-8", "KOI8-R")) == (iconv_t) - 1)
+	{
+		printf("koi_to_utf8: iconv_open error\n");
+		return;
+	}
+	len_i = strlen(str_i);
+	if ((i=iconv(cd, &str_i, &len_i, &str_o, &len_o)) == (size_t) - 1)
+	{
+		printf("koi_to_utf8: iconv error\n");
+		// return;
+	}
+	if (iconv_close(cd) == -1)
+	{
+		printf("koi_to_utf8: iconv_close error\n");
+		return;
+	}
+}
+
+void utf8_to_win(char *str_i, char *str_o)
+{
+	iconv_t cd;
+	size_t len_i, len_o = BUFFERSIZE*2;
+	size_t i;
+
+	if ((cd = iconv_open("CP1251", "UTF-8")) == (iconv_t) - 1)
+	{
+		printf("utf8_to_win: iconv_open error\n");
+		return;
+	}
+	len_i = strlen(str_i);
+	if ((i=iconv(cd, &str_i, &len_i, &str_o, &len_o)) == (size_t) - 1)
+	{
+		printf("utf8_to_win: iconv error\n");
+		// return;
+	}
+	if (iconv_close(cd) == -1)
+	{
+		printf("utf8_to_win: iconv_close error\n");
+		return;
+	}
+}
+
+void win_to_utf8(char *str_i, char *str_o)
+{
+	iconv_t cd;
+	size_t len_i, len_o = BUFFERSIZE*2;
+	size_t i;
+
+	if ((cd = iconv_open("UTF-8", "CP1251")) == (iconv_t) - 1)
+	{
+		printf("win_to_utf8: iconv_open error\n");
+		return;
+	}
+	len_i = strlen(str_i);
+	if ((i=iconv(cd, &str_i, &len_i, &str_o, &len_o)) == (size_t) - 1)
+	{
+		printf("win_to_utf8: iconv error\n");
+		// return;
+	}
+	if (iconv_close(cd) == -1)
+	{
+		printf("win_to_utf8: iconv_close error\n");
+		return;
+	}
+}
+
+void fromwin (char *str)
+{char buf [BUFFERSIZE*2];
+win_to_utf8(str,buf);
+strcpy(str,buf);
+}
+
+void outhex(char *str)
+{
+while(*str)
+	{
+	printf("'%X' ", *str++&0xFFU);
+	}
+printf("\n");
+}
 
 void version(void)
 {
@@ -126,9 +241,10 @@ if (y==max_y-1)
 }
 
 void S(char *str)
-{
+{char utfbuf[BUFFERSIZE*2];
 newline();
-printw("%s\n",str);
+if (codetable==1) {koi_to_utf8(str,utfbuf); printw("%s\n",utfbuf);}
+else printw("%s\n",str);
 }
 
 // ======================= MAIN ===================================
@@ -147,7 +263,10 @@ struct dirent *nextfile;
 FILE *fcmd, *flog;
 int trigger_exit=0;
 chtype ch;
+
 int pechal=0;
+
+codetable=0; // 0 - koi, 1 - utf
 
 initscr();
 
@@ -319,7 +438,7 @@ printw ("> %s\n", buf);
 						endwin();
 						return 2;
 						}
-					printw("%s\n", str);
+					S(str); // $$$
 					newline();
 					}
 				attron(COLOR_PAIR(1));
@@ -352,6 +471,8 @@ else if ((!strcmp(p0,"quit")) || (!strcmp(p0,"exit")) || (!strcmp(p0,"конец"))
 || (!strcmp(p0,"выход")))
 	{command ("EXIT", 0, 0); trigger_exit=1; if (pechal) {endwin(); return 3;} }
 else if ((!strcmp(p0,"help")) || (!strcmp(p0,"помощь"))) {help(); }
+else if (!strcmp(p0,"koi")) {codetable=0; }
+else if (!strcmp(p0,"utf")) {codetable=1; }
 else if (!strcmp(p0,"ping")) {command("PING", 0, 0); }
 else if ((!strcmp(p0,"who")) || (!strcmp(p0,"кто"))) {command("WHO", 0, 0); }
 else if ((!strcmp(p0,"look")) || (!strcmp(p0,"см"))) {command("LOOK", 0, 0); }

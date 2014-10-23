@@ -1,0 +1,3 @@
+bbs.o: bbs.c common.h
+common.o: common.c common.h
+server.o: server.c common.h server.h

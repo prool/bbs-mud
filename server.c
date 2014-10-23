@@ -311,7 +311,8 @@ else if (!strcmp(str,"WHO"))
 	}
 else if (!strcmp(str,"VER"))
 	{
-	sprintf(buf,"Server compilation time %s %s\n", __DATE__, __TIME__);
+#define S_VER "Server compilation time %s %s\n"
+	sprintf(buf,S_VER, __DATE__, __TIME__);
 	send_pid(pid,buf);
 	}
 else if (!strcmp(str,"LOOK"))
@@ -382,7 +383,10 @@ int pid;
 int i;
 int tick_counter;
 
-printf("\n\n%s BBS SERVER started \n\n",ptime());
+printf("\n%s BBS SERVER started \n",ptime());
+printf("Author: Prool. proolix@gmail.com http://prool.kharkov.org http://mud.kharkov.org\n");
+printf(S_VER, __DATE__, __TIME__);
+printf("For enter to BBSMUD use 'bbs' program. For stop server use control C or kill -1\n\n");
 
 // инициалиация структуры игроков
 

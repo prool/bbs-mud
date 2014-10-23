@@ -21,6 +21,11 @@ char pids[10];
 void S(char *str);
 void newline();
 
+void version(void)
+{
+printw("Prool BBS client compilation %s %s\n", __DATE__, __TIME__);
+}
+
 void command(char *cmd, char *p1, char *p2)
 {char path[STRLEN]; FILE *fcmd;
 time_t mytime;
@@ -59,7 +64,7 @@ char_count=0;
 
 void help(void)
 {
-S("Prool BBS help");
+S("Prool BBS client help");
 S("");
 S("help - help");
 S("exit - exit");
@@ -179,11 +184,11 @@ ch = 'w' | COLOR_PAIR(1); // символ с цветом 1 из палитры
 // attron(COLOR_PAIR(2));
 // attron(A_REVERSE);
 
-S("Prool BBS v 0.0");
+version();
 S("Use help for help!");
 S("Используйте команду помощь для получения помощи");
 // attron(A_UNDERLINE);
-S("(Prool site: http://mud.kharkov.ru)");
+S("(site: http://mud.kharkov.org)");
 // attroff(A_UNDERLINE);
 
 newline();
@@ -370,7 +375,7 @@ else if (!strcmp(p0,"env"))
 	}
 else if (!strcmp(p0,"ver"))
 	{
-	printw("Prool BBS, client compilation time %s %s\n", __DATE__, __TIME__);
+	version();
 	newline();
 	command("VER", 0, 0);
 	}

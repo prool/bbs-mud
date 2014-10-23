@@ -28,8 +28,9 @@ time_t mytime;
 mytime = time(0);
 
 sprintf(path,"%s%i.%i",CMD_DIR,pid,mytime);
-// S(path);
-if((fcmd=fopen(path,"w"))==NULL) S("fopen error\n");
+// S(path); // debug
+#define S_ERR "fopen error. check directories 'cmd' and 'messages'!\n\n\n\n"
+if((fcmd=fopen(path,"w"))==NULL) {S(S_ERR); printf(S_ERR); exit(2);}
 if(fprintf(fcmd, "%s\n%s\n%s\n", cmd, p1, p2)==EOF) S("fputs error\n");
 if(fclose(fcmd)) S("fclose error\n");
 refresh();

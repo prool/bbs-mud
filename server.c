@@ -395,6 +395,9 @@ for (i=0;i<MAX_CHARS;i++)
 init_rooms();
 
 // очистка каталогов cmd и messages
+
+mkdir("cmd");
+mkdir("messages");
 		if ((dd=opendir(MESSAGE_DIR))!=NULL)
 		while((nextfile=readdir(dd))!=NULL)
 			{char path[BUFFERSIZE];

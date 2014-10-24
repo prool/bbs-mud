@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <ncurses.h>
 #include <iconv.h>
+#include <locale.h> // for UTF-8 under ncurses
 
 #include "common.h"
 
@@ -209,7 +210,7 @@ S("быть только один пробел. Угадывания команд по первым буквам пока нет.");
 S("Редактирования строки пока нет. Воды и атмосферы тоже нет,");
 S("даже роботов пока нет");
 S("");
-S("(Prool site: http://mud.kharkov.ru/)");
+S("(Prool site: http://mud.kharkov.org/)");
 refresh();
 }
 
@@ -268,6 +269,7 @@ int pechal=0;
 
 codetable=0; // 0 - koi, 1 - utf
 
+setlocale(LC_CTYPE, ""); // for UTF-8 under ncurses
 initscr();
 
 max_x=getmaxx(stdscr);
@@ -308,6 +310,11 @@ S("Use help for help!");
 S("Используйте команду помощь для получения помощи");
 // attron(A_UNDERLINE);
 S("(site: http://mud.kharkov.org)");
+#if 0 // test of UTF-8
+S("koi: тест русских\n\n");
+S("utf: я┌п╣я│я│я│я│ я┌п╣я│я┌");
+S("\n\n");
+#endif
 // attroff(A_UNDERLINE);
 
 newline();

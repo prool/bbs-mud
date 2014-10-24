@@ -387,6 +387,11 @@ printf("\n%s BBS SERVER started \n",ptime());
 printf("Author: Prool. proolix@gmail.com http://prool.kharkov.org http://mud.kharkov.org\n");
 printf(S_VER, __DATE__, __TIME__);
 printf("For enter to BBSMUD use 'bbs' program. For stop server use control C or kill -1\n\n");
+#if 0
+printf("koi: тест русских\n\n");
+printf("utf: я┌п╣я│я│я│я│ я┌п╣я│я┌");
+printf("\n\n");
+#endif
 
 // инициалиация структуры игроков
 

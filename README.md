@@ -5,7 +5,7 @@ BBS MUD server and client
 
 English abstract, translated by Google Translator
 
-This mad available via ssh!
+This MUD available via ssh!
 
 Installation: make ; mkdir messages ; mkdir bbs
 
@@ -20,6 +20,8 @@ Enjoy ;-)
 Communication between server and client occur in directories 'cmd' and 'messages'
 
 You can not create a new user 'bbs', and run the program './bbs' in the console
+
+Yet realized only moving and chat
 
 ---
 

@@ -3,6 +3,26 @@ bbs-mud
 
 BBS MUD server and client
 
+English abstract, translated by Google Translator
+
+This mad available via ssh!
+
+Installation: make ; mkdir messages ; mkdir bbs
+
+Create in Linux server user name 'bbs' with password 'bbs' and adjust his shell to 'bbs'
+
+Run program 'server' as daemon
+
+Login to 'bbs': ssh -l bbs
+
+Enjoy ;-)
+
+Communication between server and client occur in directories 'cmd' and 'messages'
+
+You can not create a new user 'bbs', and run the program './bbs' in the console
+
+---
+
 Введение в BBS MUD
 
 Давно я хотел написать свой мад, но необходимость работы с портами, кодировками

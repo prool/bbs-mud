@@ -183,8 +183,8 @@ void help(void)
 S("Prool BBS client help");
 S("");
 S("help - help");
-S("exit - exit");
-S("quit - quit");
+S("exit, quit - exit");
+S("koi, utf - set codetable");
 S("ping - ping");
 S("ver - version");
 S("who - who");
@@ -243,8 +243,10 @@ if (y==max_y-1)
 
 void S(char *str)
 {char utfbuf[BUFFERSIZE*2];
+int i;
+
 newline();
-if (codetable==1) {koi_to_utf8(str,utfbuf); printw("%s\n",utfbuf);}
+if (codetable==1) {for (i=0;i<BUFFERSIZE*2;i++) utfbuf[i]=0; koi_to_utf8(str,utfbuf); printw("%s\n",utfbuf);}
 else printw("%s\n",str);
 }
 
@@ -478,8 +480,8 @@ else if ((!strcmp(p0,"quit")) || (!strcmp(p0,"exit")) || (!strcmp(p0,"конец"))
 || (!strcmp(p0,"выход")))
 	{command ("EXIT", 0, 0); trigger_exit=1; if (pechal) {endwin(); return 3;} }
 else if ((!strcmp(p0,"help")) || (!strcmp(p0,"помощь"))) {help(); }
-else if (!strcmp(p0,"koi")) {codetable=0; }
-else if (!strcmp(p0,"utf")) {codetable=1; }
+else if (!strcmp(p0,"koi")) {codetable=0; S("Set KOI-8R codetable");}
+else if (!strcmp(p0,"utf")) {codetable=1; S("Set UTF-8 codetable");}
 else if (!strcmp(p0,"ping")) {command("PING", 0, 0); }
 else if ((!strcmp(p0,"who")) || (!strcmp(p0,"кто"))) {command("WHO", 0, 0); }
 else if ((!strcmp(p0,"look")) || (!strcmp(p0,"см"))) {command("LOOK", 0, 0); }

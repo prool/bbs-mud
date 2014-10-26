@@ -1,7 +1,7 @@
 all:	bbs server
 
 bbs:	bbs.c common.o
-	gcc bbs.c common.o -o bbs -lncurses
+	gcc bbs.c common.o -o bbs -lncursesw
 server:	server.c common.h common.o server.h
 	gcc server.c common.o -o server
 depend:

@@ -15,6 +15,13 @@
 #define STRLEN 255
 #define LOG "./client.log"
 
+// codetables for console and log
+#define T_KOI			0
+#define T_UTF			1
+#define T_WIN			2
+#define T_ALT			3
+#define T_LAT			4
+
 // globals
 int max_x, max_y;  
 int pid;
@@ -269,7 +276,42 @@ chtype ch;
 
 int pechal=0;
 
-codetable=0; // 0 - koi, 1 - utf
+codetable=T_UTF;
+
+#if 0
+printf("koi: тест русских КОИ восемь Эр\n");
+printf("utf: п╒п╣я│я┌ - пёп╒п╓ п╡п╬я│п╣п╪я▄");
+printf("\n\n");
+printf("press any key\n\n");
+getchar();
+#endif
+
+// prool: config file processing
+
+FILE *fconfig;
+char string[STRLEN];
+
+fconfig=fopen("bbs.cfg","r");
+if (fconfig)
+	{
+	//printf("bbs.cfg open\n");
+	while (!feof(fconfig))
+		{char *pp;
+		string[0]=0;
+		fgets(string,STRLEN,fconfig);
+		pp=strchr(string,'\n');
+		if (pp) *pp=0;
+		// printf("`%s'\n", string); // debug print
+		if (!strcmp(string,"test")) printf("TEST OK!\n");
+		else if (!strcmp(string,"client_codetable_utf")) codetable=T_UTF;
+		else if (!strcmp(string,"client_codetable_koi")) codetable=T_KOI;
+		}
+	fclose(fconfig);
+	}
+else
+	{
+	printf("bbs.cfg not open\n");
+	}
 
 setlocale(LC_CTYPE, ""); // for UTF-8 under ncurses
 initscr();
@@ -321,7 +363,7 @@ S("\n\n");
 
 newline();
 attron(COLOR_PAIR(1));
-printw("Enter Your name. Введите свое имя: ");
+printw("Enter Your name: ");
 refresh();
 gets_(name, BUFFERSIZE);
 // S(name);

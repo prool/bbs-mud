@@ -389,8 +389,8 @@ printf("Author: Prool. proolix@gmail.com http://prool.kharkov.org http://mud.kha
 printf(S_VER, __DATE__, __TIME__);
 printf("For enter to BBSMUD use 'bbs' program. For stop server use control C or kill -1\n\n");
 #if 1
-printf("koi: тест русских\n\n");
-printf("utf: я┌п╣я│я│я│я│ я┌п╣я│я┌");
+printf("koi: тест русских КОИ восемь Эр\n");
+printf("utf: п╒п╣я│я┌ - пёп╒п╓ п╡п╬я│п╣п╪я▄");
 printf("\n\n");
 #endif
 

@@ -388,7 +388,7 @@ printf("\n%s BBS SERVER started \n",ptime());
 printf("Author: Prool. proolix@gmail.com http://prool.kharkov.org http://mud.kharkov.org\n");
 printf(S_VER, __DATE__, __TIME__);
 printf("For enter to BBSMUD use 'bbs' program. For stop server use control C or kill -1\n\n");
-#if 0
+#if 1
 printf("koi: ‘≈”‘ “’””À…»\n\n");
 printf("utf: —Ç–µ—Å—Å—Å—Å —Ç–µ—Å—Ç");
 printf("\n\n");

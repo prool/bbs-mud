@@ -69,7 +69,15 @@ cmd (команды от клиента к серверу) и messages (отве
 
 5. Радоваться (рыдать или поражаться идиотизму автора мада)
 
-Пруль, Харьков, 23 октября 2014 года
+Пруль, Харьков, 2015 год
+
+---
+
+Если вы запустили мад-кдиент bbs как user shell, то для безопасности отключите port forwarding, внеся в /etc/ssh/sshd_config
+X11Forwarding no
+AllowTcpForwarding no
+
+---
 
 proolix@gmail.com
 http://prool.kharkov.org

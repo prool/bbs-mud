@@ -22,3 +22,6 @@
 #define MAX_NAME_LEN 15
 
 #define TICK 500000 // microsec
+
+char *ptime(void); // ÷ÏÚ×ÒÁÝÁÅÍÏÅ ÚÎÁÞÅÎÉÅ: ÓÓÙÌËÁ ÎÁ ÔÅËÓÔÏ×ÕÀ ÓÔÒÏËÕ Ó ÔÅËÕÝÉÍ ×ÒÅÍÅÎÅÍ
+char *nslookup(const char *ip);

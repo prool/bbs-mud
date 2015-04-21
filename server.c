@@ -371,7 +371,7 @@ return -1;
 
 // ======================= SERVER MAIN() ===================================
 
-int main(void)
+int main()
 {char path[BUFFERSIZE];
 char str[STRLEN];
 char p1[STRLEN];
@@ -383,6 +383,7 @@ int pid;
 int i;
 int tick_counter;
 
+printf("\nBBS SERVER started\n");
 printf("\n%s BBS SERVER started \n",ptime());
 printf("Author: Prool. proolix@gmail.com http://prool.kharkov.org http://mud.kharkov.org\n");
 printf(S_VER, __DATE__, __TIME__);
@@ -392,6 +393,7 @@ printf("koi: тест русских\n\n");
 printf("utf: я┌п╣я│я│я│я│ я┌п╣я│я┌");
 printf("\n\n");
 #endif
+
 
 // инициалиация структуры игроков
 
@@ -405,8 +407,8 @@ init_rooms();
 
 // очистка каталогов cmd и messages
 
-mkdir("cmd");
-mkdir("messages");
+mkdir("cmd",0777);
+mkdir("messages",0777);
 		if ((dd=opendir(MESSAGE_DIR))!=NULL)
 		while((nextfile=readdir(dd))!=NULL)
 			{char path[BUFFERSIZE];

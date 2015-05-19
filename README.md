@@ -7,7 +7,7 @@ English abstract, translated by Google Translator
 
 This MUD available via ssh!
 
-Installation: make ; mkdir messages ; mkdir bbs
+Installation: make ; mkdir messages ; mkdir cmd
 
 Create in Linux server user name 'bbs' with password 'bbs' and adjust his shell to 'bbs'
 

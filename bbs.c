@@ -394,7 +394,7 @@ usleep(TICK+1);
 				{
 				attron(COLOR_PAIR(3));
 				newline();
-				printw ("Сервер, похоже, не запущен. Печаль!\n");
+				printw ("Server not found!\n");
 				pechal=1;
 				attron(COLOR_PAIR(1));
 				}
@@ -479,13 +479,18 @@ printw ("> %s\n", buf);
 					fgets(str, STRLEN, fm);
 					if (!strcmp(str,"!!EXIT") && trigger_exit)
 						{
-						fclose(fm);
-						unlink(path);
 						S("Exit. Press any key\n");
-						newline();
-						refresh();
-						nocbreak();
-						getch();
+						goto l_exit;
+						}
+					if (!strcmp(str,"SERVER SHUTDOWN\n"))
+						{
+						S("Server shutdown. Press any key\n");
+						goto l_exit;
+						}
+					if (!strcmp(str,"SERVER REBOOT\n"))
+						{
+						S("Server reboot. Press any key\n");
+						l_exit: fclose(fm); unlink(path); newline(); refresh(); nocbreak(); getch();
 						endwin();
 						return 2;
 						}
@@ -525,6 +530,8 @@ else if ((!strcmp(p0,"help")) || (!strcmp(p0,"помощь"))) {help(); }
 else if (!strcmp(p0,"koi")) {codetable=0; S("Set KOI-8R codetable");}
 else if (!strcmp(p0,"utf")) {codetable=1; S("Set UTF-8 codetable");}
 else if (!strcmp(p0,"ping")) {command("PING", 0, 0); }
+else if (!strcmp(p0,"reboot")) {command("REBOOT", 0, 0); }
+else if (!strcmp(p0,"shutdown")) {command("SHUTDOWN", 0, 0); }
 else if ((!strcmp(p0,"who")) || (!strcmp(p0,"кто"))) {command("WHO", 0, 0); }
 else if ((!strcmp(p0,"look")) || (!strcmp(p0,"см"))) {command("LOOK", 0, 0); }
 else if ((!strcmp(p0,"north")) || (!strcmp(p0,"с"))) {command("north", 0, 0); }

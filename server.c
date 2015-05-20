@@ -355,6 +355,8 @@ else if (!strcmp(str,"EXIT"))
 			}
 		}
 	}
+else if (!strcmp(str,"REBOOT")) {send_all("SERVER REBOOT\n");}
+else if (!strcmp(str,"SHUTDOWN")) {send_all("SERVER SHUTDOWN\n");}
 else
 	printf("unknown command pid=%i cmd=`%s' p1=`%s' p2=`%s'\n", pid, str, p1, p2);
 }
@@ -387,8 +389,8 @@ printf("\nBBS SERVER started\n");
 printf("\n%s BBS SERVER started \n",ptime());
 printf("Author: Prool. proolix@gmail.com http://prool.kharkov.org http://mud.kharkov.org\n");
 printf(S_VER, __DATE__, __TIME__);
-printf("For enter to BBSMUD use 'bbs' program. For stop server use control C or kill -1\n\n");
-#if 1
+// printf("For enter to BBSMUD use 'bbs' program. For stop server use control C or kill -1\n\n");
+#if 0
 printf("koi: тест русских КОИ восемь Эр\n");
 printf("utf: п╒п╣я│я┌ - пёп╒п╓ п╡п╬я│п╣п╪я▄");
 printf("\n\n");
@@ -451,6 +453,14 @@ while(1)
 						fgets(p2,STRLEN,fcmd);
 				pid=atoi(path+strlen(CMD_DIR));
 				server_cmd(pid, str, p1, p2);
+				if (!strcmp(str,"REBOOT")) {printf("MUD reboot\n"); goto l_exit; }
+				if (!strcmp(str,"SHUTDOWN"))
+				    {FILE *ff;
+				    ff=fopen(".killscript","w");
+				    fclose(ff);
+				    printf("MUD shutdown\n");
+				    goto l_exit;
+				    }
 				}
 			if (unlink(path)) printf("unlink error\n");
 			}
@@ -464,4 +474,5 @@ while(1)
 		send_all("Прошла минута\n");
 		}
 	}
+l_exit: ;
 }

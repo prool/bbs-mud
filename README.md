@@ -25,6 +25,8 @@ Yet realized only moving and chat
 
 ---
 
+Russian text in UTF-8
+
 Введение в BBS MUD
 
 Давно я хотел написать свой мад, но необходимость работы с портами, кодировками
@@ -80,6 +82,11 @@ sudo -u bbs ~bbs/autorun.bbs & > /dev/null
 
 ---
 
+Если у вас ОС Windows и ssh клиент putty, проще всего переключить его на кодировку KOI-8R (пункт настроек putty "Translation")
+и выбрать в маде кодировку koi, введя первой командой после входа команду koi
+
+---
+
 Если вы запустили мад-клиент bbs как user shell, то для безопасности отключите port forwarding, внеся в /etc/ssh/sshd_config
 
 X11Forwarding no
@@ -88,7 +95,7 @@ AllowTcpForwarding no
 
 ---
 
-А це тест української мови. Ґеть! Ґаньба!
+А це тест української мови. Слава Україні! Героям слава!
 
 ---
 

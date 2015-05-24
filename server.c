@@ -1,5 +1,7 @@
 // BBS SERVER, Prool
 
+// Russian comments in KOI-8R
+
 #include "common.h"
 #include "server.h"
 

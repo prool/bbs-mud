@@ -57,6 +57,54 @@ void utf8_to_koi(char *str_i, char *str_o)
 	}
 }
 
+void koi_to_alt(char *str_i, char *str_o)
+{
+	iconv_t cd;
+	size_t len_i, len_o = BUFFERSIZE*2;
+	size_t i;
+
+	if ((cd = iconv_open("UTF-8", "CP866")) == (iconv_t) - 1)
+	{
+		printf("koi_to_alt: iconv_open error\n");
+		return;
+	}
+	len_i = strlen(str_i);
+	if ((i=iconv(cd, &str_i, &len_i, &str_o, &len_o)) == (size_t) - 1)
+	{
+		printf("koi_to_alt: iconv error\n");
+		// return;
+	}
+	if (iconv_close(cd) == -1)
+	{
+		printf("koi_to_alt: iconv_close error\n");
+		return;
+	}
+}
+
+void koi_to_win(char *str_i, char *str_o)
+{
+	iconv_t cd;
+	size_t len_i, len_o = BUFFERSIZE*2;
+	size_t i;
+
+	if ((cd = iconv_open("UTF-8", "CP1251")) == (iconv_t) - 1)
+	{
+		printf("koi_to_win: iconv_open error\n");
+		return;
+	}
+	len_i = strlen(str_i);
+	if ((i=iconv(cd, &str_i, &len_i, &str_o, &len_o)) == (size_t) - 1)
+	{
+		printf("koi_to_win: iconv error\n");
+		// return;
+	}
+	if (iconv_close(cd) == -1)
+	{
+		printf("koi_to_win: iconv_close error\n");
+		return;
+	}
+}
+
 void koi_to_utf8(char *str_i, char *str_o)
 {
 	iconv_t cd;
@@ -191,7 +239,7 @@ S("Prool BBS client help");
 S("");
 S("help - help");
 S("exit, quit - exit");
-S("koi, utf - set codetable");
+S("koi, utf, win, alt - set codetable");
 S("ping - ping");
 S("ver - version");
 S("who - who");
@@ -253,8 +301,17 @@ void S(char *str)
 int i;
 
 newline();
+switch(codetable)
+{
+case T_UTF: for (i=0;i<BUFFERSIZE*2;i++) utfbuf[i]=0; koi_to_utf8(str,utfbuf); printw("%s\n",utfbuf); break;
+case T_ALT: for (i=0;i<BUFFERSIZE*2;i++) utfbuf[i]=0; koi_to_alt(str,utfbuf); printw("%s\n",utfbuf); break;
+case T_WIN: for (i=0;i<BUFFERSIZE*2;i++) utfbuf[i]=0; koi_to_win(str,utfbuf); printw("%s\n",utfbuf); break;
+default: printw("%s\n",str);
+}
+/*
 if (codetable==1) {for (i=0;i<BUFFERSIZE*2;i++) utfbuf[i]=0; koi_to_utf8(str,utfbuf); printw("%s\n",utfbuf);}
 else printw("%s\n",str);
+*/
 }
 
 // ======================= MAIN ===================================
@@ -527,8 +584,10 @@ else if ((!strcmp(p0,"quit")) || (!strcmp(p0,"exit")) || (!strcmp(p0,"конец"))
 || (!strcmp(p0,"выход")))
 	{command ("EXIT", 0, 0); trigger_exit=1; if (pechal) {endwin(); return 3;} }
 else if ((!strcmp(p0,"help")) || (!strcmp(p0,"помощь"))) {help(); }
-else if (!strcmp(p0,"koi")) {codetable=0; S("Set KOI-8R codetable");}
-else if (!strcmp(p0,"utf")) {codetable=1; S("Set UTF-8 codetable");}
+else if (!strcmp(p0,"koi")) {codetable=T_KOI; S("Set KOI-8R codetable");}
+else if (!strcmp(p0,"utf")) {codetable=T_UTF; S("Set UTF-8 codetable");}
+else if (!strcmp(p0,"alt")) {codetable=T_ALT; S("Set ALT codetable");}
+else if (!strcmp(p0,"win")) {codetable=T_WIN; S("Set WIN codetable");}
 else if (!strcmp(p0,"ping")) {command("PING", 0, 0); }
 else if (!strcmp(p0,"reboot")) {command("REBOOT", 0, 0); }
 else if (!strcmp(p0,"shutdown")) {command("SHUTDOWN", 0, 0); }

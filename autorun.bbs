@@ -4,20 +4,20 @@ rm .killscript
 
 while [ 1 ]; do
 
-date "+%d-%m-%Y %H:%M:%S start" >> autolog.txt
+date "+%d-%m-%Y %H:%M:%S start" >> syslog
 ~bbs/server
-date "+%d-%m-%Y %H:%M:%S exit" >> autolog.txt
+date "+%d-%m-%Y %H:%M:%S exit" >> syslog
 
 # save syslog
-mv syslog syslog-tail-`date "+%d-%m-%Y-%H-%M-%S"`
+mv syslog syslog-`date "+%d-%m-%Y-%H-%M-%S"`
 
   if [ -r .killscript ]; then
     DATE=`date`;
-    echo "MUD shutdown $DATE"  >> syslog
+#    echo "MUD shutdown $DATE"  >> syslog
     rm .killscript
     exit
   fi
-  
+
 sleep 1
 
 done

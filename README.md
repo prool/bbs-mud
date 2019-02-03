@@ -1,8 +1,6 @@
 bbs-mud
 =======
 
-[Screenshots. Скриншоты](http://blog.mud.kharkov.org/screenshots#bbsmud)
-
 BBS MUD server and client
 
 English abstract, translated by Google Translator

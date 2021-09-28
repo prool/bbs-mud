@@ -41,13 +41,13 @@ char *kuda_ushel(int direct)
 {
 	switch(direct)
 	{
-	case NORTH: return "на север";
-	case EAST: return "на восток";
-	case SOUTH: return "на юг";
-	case WEST: return "на запад";
-	case UP: return "вверх";             
-	case DOWN: return "вниз";
-	default: return "к чорту";
+	case NORTH: return "п╫п╟ я│п╣п╡п╣я─";
+	case EAST: return "п╫п╟ п╡п╬я│я┌п╬п╨";
+	case SOUTH: return "п╫п╟ я▌пЁ";
+	case WEST: return "п╫п╟ п╥п╟п©п╟п╢";
+	case UP: return "п╡п╡п╣я─я┘";             
+	case DOWN: return "п╡п╫п╦п╥";
+	default: return "п╨ я┤п╬я─я┌я┐";
 	}
 }
 
@@ -55,13 +55,13 @@ char *otkuda_prishel(int direct)
 {
 	switch(direct)
 	{
-	case NORTH: return "с юга";
-	case EAST: return "с запада";
-	case SOUTH: return "с севера";
-	case WEST: return "с востока";
-	case UP: return "снизу";             
-	case DOWN: return "сверху";
-	default: return "из Сумрака";
+	case NORTH: return "я│ я▌пЁп╟";
+	case EAST: return "я│ п╥п╟п©п╟п╢п╟";
+	case SOUTH: return "я│ я│п╣п╡п╣я─п╟";
+	case WEST: return "я│ п╡п╬я│я┌п╬п╨п╟";
+	case UP: return "я│п╫п╦п╥я┐";             
+	case DOWN: return "я│п╡п╣я─я┘я┐";
+	default: return "п╦п╥ п║я┐п╪я─п╟п╨п╟";
 	}
 }
 
@@ -78,7 +78,7 @@ void pid_leave_room(int pid)
 {int i, j, x, y;
 i=vnum_by_pid(pid);
 if (i==-1) return;
-// освобождение места в комнате
+// п╬я│п╡п╬п╠п╬п╤п╢п╣п╫п╦п╣ п╪п╣я│я┌п╟ п╡ п╨п╬п╪п╫п╟я┌п╣
 x=chars[i].x;
 y=chars[i].y;
 for (j=0;j<MAX_CHARS_IN_ROOM;j++)
@@ -115,7 +115,7 @@ if (pid==0) return;
 mytime = time(0);
 //printf("time =%li\n", mytime);
 
-// формирование имени файла
+// я└п╬я─п╪п╦я─п╬п╡п╟п╫п╦п╣ п╦п╪п╣п╫п╦ я└п╟п╧п╩п╟
 sprintf(path,"%s%i.%i",MESSAGE_DIR,pid,mytime);
 //printf("path=%s\n", path);
 
@@ -177,7 +177,7 @@ int moving (int pid, int direct)
 	char buf[STRLEN];
 
 	if ((vnum=vnum_by_pid(pid))==-1) return 3;
-#define NO_WAY "Вы не можете туда пройти, там конец Мира\n"
+#define NO_WAY "п▓я▀ п╫п╣ п╪п╬п╤п╣я┌п╣ я┌я┐п╢п╟ п©я─п╬п╧я┌п╦, я┌п╟п╪ п╨п╬п╫п╣я├ п°п╦я─п╟\n"
 	oldx=chars[vnum].x; oldy=chars[vnum].y;
 	newx=oldx; newy=oldy;
 
@@ -188,31 +188,31 @@ int moving (int pid, int direct)
 	case SOUTH: if (oldx>=(MAX_X-1)) {send_pid(pid,NO_WAY); return 1;} else newx++; break;
 	case WEST:  if (oldy==0) {send_pid(pid,NO_WAY); return 1;} else newy--; break;
 	case UP:             
-	case DOWN:  send_pid(pid,"Вы не можете туда пройти, Мир пока плоский\n"); return 5;
+	case DOWN:  send_pid(pid,"п▓я▀ п╫п╣ п╪п╬п╤п╣я┌п╣ я┌я┐п╢п╟ п©я─п╬п╧я┌п╦, п°п╦я─ п©п╬п╨п╟ п©п╩п╬я│п╨п╦п╧\n"); return 5;
 	default: return 4;           
 	}
 
 	if ((j=room_char_free_slot(newx, newy))==-1)
 		{
-		send_pid(pid,"Вы не можете туда пройти, там занято\n");
+		send_pid(pid,"п▓я▀ п╫п╣ п╪п╬п╤п╣я┌п╣ я┌я┐п╢п╟ п©я─п╬п╧я┌п╦, я┌п╟п╪ п╥п╟п╫я▐я┌п╬\n");
 		return 2;
 		}
-	// удаляем из старой комн.
+	// я┐п╢п╟п╩я▐п╣п╪ п╦п╥ я│я┌п╟я─п╬п╧ п╨п╬п╪п╫.
 	pid_leave_room(pid);
-	// сообщения: в старую "ушел"
-	sprintf(buf,"Игрок %s ушел %s\n", name_by_pid(pid), kuda_ushel(direct));
+	// я│п╬п╬п╠я┴п╣п╫п╦я▐: п╡ я│я┌п╟я─я┐я▌ "я┐я┬п╣п╩"
+	sprintf(buf,"п≤пЁя─п╬п╨ %s я┐я┬п╣п╩ %s\n", name_by_pid(pid), kuda_ushel(direct));
 	send_room(oldx,oldy,buf);
-	// сообщения: в новую "пришел"
-	sprintf(buf,"Игрок %s пришел %s\n", name_by_pid(pid), otkuda_prishel(direct));
+	// я│п╬п╬п╠я┴п╣п╫п╦я▐: п╡ п╫п╬п╡я┐я▌ "п©я─п╦я┬п╣п╩"
+	sprintf(buf,"п≤пЁя─п╬п╨ %s п©я─п╦я┬п╣п╩ %s\n", name_by_pid(pid), otkuda_prishel(direct));
 	send_room(newx,newy,buf);
-	// помещаем в новую комн.
+	// п©п╬п╪п╣я┴п╟п╣п╪ п╡ п╫п╬п╡я┐я▌ п╨п╬п╪п╫.
         chars[vnum].x=newx;
         chars[vnum].y=newy;
         rooms[newx][newy].chars[j]=pid;
-	// сообщение игроку "вы пошли на восток" и look новой комнаты
-	sprintf(buf, "Вы пошли %s\n", kuda_ushel(direct));
+	// я│п╬п╬п╠я┴п╣п╫п╦п╣ п╦пЁя─п╬п╨я┐ "п╡я▀ п©п╬я┬п╩п╦ п╫п╟ п╡п╬я│я┌п╬п╨" п╦ look п╫п╬п╡п╬п╧ п╨п╬п╪п╫п╟я┌я▀
+	sprintf(buf, "п▓я▀ п©п╬я┬п╩п╦ %s\n", kuda_ushel(direct));
 	send_pid(pid, buf);
-	server_cmd(pid, "LOOK", "", ""); // а это уже наглость, именумая рекурсией
+	server_cmd(pid, "LOOK", "", ""); // п╟ я█я┌п╬ я┐п╤п╣ п╫п╟пЁп╩п╬я│я┌я▄, п╦п╪п╣п╫я┐п╪п╟я▐ я─п╣п╨я┐я─я│п╦п╣п╧
 	return 0;
 	}
 
@@ -240,20 +240,20 @@ if (!strcmp(str,"LOGON"))
 				rooms[INIT_X][INIT_Y].chars[j]=pid;
 				printf(" OK i=%i\n",i);
 				sprintf(buf,
-				"Сообщение сервера: %s logon OK. Сейчас на сервере игроков в онлайне %i\n",
+				"п║п╬п╬п╠я┴п╣п╫п╦п╣ я│п╣я─п╡п╣я─п╟: %s logon OK. п║п╣п╧я┤п╟я│ п╫п╟ я│п╣я─п╡п╣я─п╣ п╦пЁя─п╬п╨п╬п╡ п╡ п╬п╫п╩п╟п╧п╫п╣ %i\n",
 				chars[i].name, gamers_count());
 				send_pid(pid,buf);
-				sprintf(buf,"Игрок %s вошел в игру\n", chars[i].name);
+				sprintf(buf,"п≤пЁя─п╬п╨ %s п╡п╬я┬п╣п╩ п╡ п╦пЁя─я┐\n", chars[i].name);
 				send_all(buf);
 				return;
 				}
 			printf(" ROOM OVERFLOW\n");
-			send_pid(pid,"Начальная комната переполнена игроками! Зайдите позже, пожалуйста, администрация сервера будет извещена о переполнении и примет меры в ближайшее время\n");
+			send_pid(pid,"п²п╟я┤п╟п╩я▄п╫п╟я▐ п╨п╬п╪п╫п╟я┌п╟ п©п╣я─п╣п©п╬п╩п╫п╣п╫п╟ п╦пЁя─п╬п╨п╟п╪п╦! п≈п╟п╧п╢п╦я┌п╣ п©п╬п╥п╤п╣, п©п╬п╤п╟п╩я┐п╧я│я┌п╟, п╟п╢п╪п╦п╫п╦я│я┌я─п╟я├п╦я▐ я│п╣я─п╡п╣я─п╟ п╠я┐п╢п╣я┌ п╦п╥п╡п╣я┴п╣п╫п╟ п╬ п©п╣я─п╣п©п╬п╩п╫п╣п╫п╦п╦ п╦ п©я─п╦п╪п╣я┌ п╪п╣я─я▀ п╡ п╠п╩п╦п╤п╟п╧я┬п╣п╣ п╡я─п╣п╪я▐\n");
 			return;
 			}
 		}
 	printf(" OVERFLOW\n");
-	send_pid(pid,"Сервер переполнен игроками! Зайдите позже, пожалуйста, администрация сервера будет извещена о переполнении и примет меры в ближайшее время\n");
+	send_pid(pid,"п║п╣я─п╡п╣я─ п©п╣я─п╣п©п╬п╩п╫п╣п╫ п╦пЁя─п╬п╨п╟п╪п╦! п≈п╟п╧п╢п╦я┌п╣ п©п╬п╥п╤п╣, п©п╬п╤п╟п╩я┐п╧я│я┌п╟, п╟п╢п╪п╦п╫п╦я│я┌я─п╟я├п╦я▐ я│п╣я─п╡п╣я─п╟ п╠я┐п╢п╣я┌ п╦п╥п╡п╣я┴п╣п╫п╟ п╬ п©п╣я─п╣п©п╬п╩п╫п╣п╫п╦п╦ п╦ п©я─п╦п╪п╣я┌ п╪п╣я─я▀ п╡ п╠п╩п╦п╤п╟п╧я┬п╣п╣ п╡я─п╣п╪я▐\n");
 	}
 else if (!strcmp(str,"east")) moving(pid, EAST);
 else if (!strcmp(str,"west")) moving(pid, WEST);
@@ -277,27 +277,27 @@ else if (!strcmp(str,"TELL"))
 	printf("pid=%i\n", i);
 	if (i==0)
 		{
-		sprintf(buf,"Вы попытались сказать '%s' отсутствующему игроку %s\n",p2,p1);
+		sprintf(buf,"п▓я▀ п©п╬п©я▀я┌п╟п╩п╦я│я▄ я│п╨п╟п╥п╟я┌я▄ '%s' п╬я┌я│я┐я┌я│я┌п╡я┐я▌я┴п╣п╪я┐ п╦пЁя─п╬п╨я┐ %s\n",p2,p1);
 		send_pid(pid, buf);
 		}
 	else
 		{
-		sprintf(buf,"Игрок %s сказал Вам: '%s'\n",name_by_pid(pid),p2);
+		sprintf(buf,"п≤пЁя─п╬п╨ %s я│п╨п╟п╥п╟п╩ п▓п╟п╪: '%s'\n",name_by_pid(pid),p2);
 		send_pid(i, buf);
-		sprintf(buf,"Вы сказали '%s' игроку %s\n",p2,name_by_pid(i));
+		sprintf(buf,"п▓я▀ я│п╨п╟п╥п╟п╩п╦ '%s' п╦пЁя─п╬п╨я┐ %s\n",p2,name_by_pid(i));
 		send_pid(pid, buf);
 		}
 	}
 else if (!strcmp(str,"GOSSIP"))
 	{
-	sprintf(buf,"Игрок %s сказал всем: '%s'\n",name_by_pid(pid),p1);
+	sprintf(buf,"п≤пЁя─п╬п╨ %s я│п╨п╟п╥п╟п╩ п╡я│п╣п╪: '%s'\n",name_by_pid(pid),p1);
 	send_all(buf);
 	}
 else if (!strcmp(str,"SAY"))
 	{
 	if((vnum=vnum_by_pid(pid))!=-1)
 		{
-		sprintf(buf,"Игрок %s сказал: '%s'\n",name_by_pid(pid),p1);
+		sprintf(buf,"п≤пЁя─п╬п╨ %s я│п╨п╟п╥п╟п╩: '%s'\n",name_by_pid(pid),p1);
 		send_room(chars[vnum].x,chars[vnum].y,buf);
 		}
 	}
@@ -321,7 +321,7 @@ else if (!strcmp(str,"LOOK"))
 	{int x,y;
 	if((j=vnum_by_pid(pid))==-1)
 		{
-		sprintf(buf,"Вы призрак какой-то и находитесь нигде");
+		sprintf(buf,"п▓я▀ п©я─п╦п╥я─п╟п╨ п╨п╟п╨п╬п╧-я┌п╬ п╦ п╫п╟я┘п╬п╢п╦я┌п╣я│я▄ п╫п╦пЁп╢п╣");
 		send_pid(pid,buf);
 		}
 	else
@@ -330,13 +330,13 @@ else if (!strcmp(str,"LOOK"))
 		y=chars[j].y;
 		sprintf(buf,"Room [%i,%i]\n\n%s",x, y, rooms[x][y].descr);
 		send_pid(pid,buf);
-		// вывод списка находящихся в комнате игроков
+		// п╡я▀п╡п╬п╢ я│п©п╦я│п╨п╟ п╫п╟я┘п╬п╢я▐я┴п╦я┘я│я▐ п╡ п╨п╬п╪п╫п╟я┌п╣ п╦пЁя─п╬п╨п╬п╡
 		for (j=0;j<MAX_CHARS_IN_ROOM;j++)
 			{
 			if (rooms[x][y].chars[j])
 				if (rooms[x][y].chars[j]!=pid)
 					{
-					sprintf(buf,"\nИгрок %s находится тут",name_by_pid(rooms[x][y].chars[j]));
+					sprintf(buf,"\nп≤пЁя─п╬п╨ %s п╫п╟я┘п╬п╢п╦я┌я│я▐ я┌я┐я┌",name_by_pid(rooms[x][y].chars[j]));
 					send_pid(pid,buf);
 					}
 			}
@@ -344,13 +344,13 @@ else if (!strcmp(str,"LOOK"))
 	}
 else if (!strcmp(str,"EXIT"))
 	{
-	send_pid(pid,"Вы вышли\n!!EXIT");
+	send_pid(pid,"п▓я▀ п╡я▀я┬п╩п╦\n!!EXIT");
 	for (i=0;i<MAX_CHARS;i++) 
 		{
 		if (chars[i].pid==pid)
 			{
 			printf("%s User %s logoff\n", ptime(), chars[i].name);
-			sprintf(buf,"Игрок %s вышел из игры\n", chars[i].name);
+			sprintf(buf,"п≤пЁя─п╬п╨ %s п╡я▀я┬п╣п╩ п╦п╥ п╦пЁя─я▀\n", chars[i].name);
 			pid_leave_room(pid);
 			chars[i].pid=0;
 			send_all(buf);
@@ -393,23 +393,23 @@ printf("Author: Prool. proolix@gmail.com http://prool.kharkov.org http://mud.kha
 printf(S_VER, __DATE__, __TIME__);
 // printf("For enter to BBSMUD use 'bbs' program. For stop server use control C or kill -1\n\n");
 #if 0
-printf("koi: тест русских КОИ восемь Эр\n");
-printf("utf: п╒п╣я│я┌ - пёп╒п╓ п╡п╬я│п╣п╪я▄");
+printf("koi: я┌п╣я│я┌ я─я┐я│я│п╨п╦я┘ п п·п≤ п╡п╬я│п╣п╪я▄ п╜я─\n");
+printf("utf: п©Б∙▓п©Б∙ёя▐Б■┌я▐Б■▄ - п©я▒п©Б∙▓п©Б∙⌠ п©Б∙║п©Б∙╛я▐Б■┌п©Б∙ёп©Б∙╙я▐Б√└");
 printf("\n\n");
 #endif
 
 
-// инициалиация структуры игроков
+// п╦п╫п╦я├п╦п╟п╩п╦п╟я├п╦я▐ я│я┌я─я┐п╨я┌я┐я─я▀ п╦пЁя─п╬п╨п╬п╡
 
 for (i=0;i<MAX_CHARS;i++)
 	{
 	chars[i].pid=0;
 	}
 
-// инициализация комнат
+// п╦п╫п╦я├п╦п╟п╩п╦п╥п╟я├п╦я▐ п╨п╬п╪п╫п╟я┌
 init_rooms();
 
-// очистка каталогов cmd и messages
+// п╬я┤п╦я│я┌п╨п╟ п╨п╟я┌п╟п╩п╬пЁп╬п╡ cmd п╦ messages
 
 mkdir("cmd",0777);
 mkdir("messages",0777);
@@ -473,7 +473,7 @@ while(1)
 	tick_counter++;
 	if (tick_counter%120==0)
 		{
-		send_all("Прошла минута\n");
+		send_all("п÷я─п╬я┬п╩п╟ п╪п╦п╫я┐я┌п╟\n");
 		}
 	}
 l_exit: ;

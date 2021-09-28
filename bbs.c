@@ -21,6 +21,7 @@
 #define T_WIN			2
 #define T_ALT			3
 #define T_LAT			4
+#define T_RAW			5
 
 // globals
 int max_x, max_y;  
@@ -239,31 +240,31 @@ S("Prool BBS client help");
 S("");
 S("help - help");
 S("exit, quit - exit");
-S("koi, utf, win, alt - set codetable");
+S("koi, utf, win, alt, raw - set codetable");
 S("ping - ping");
 S("ver - version");
 S("who - who");
-S("gossip - gossip (болтать). Например: gossip Всем привет");
-S("Или сокращенно так:");
-S("\" Всем привет");
-S("Вас услышат во всем игровом Мире");
-S("tell - сказать игроку (приватно), например tell prool hello, prool");
-S("Или так:");
-S("сказать prool привет Прулю!");
-S("say - говорить внутри комнаты. Например, say hello, guys!");
-S("Или сокращенно:");
+S("gossip - gossip (п╠п╬п╩я┌п╟я┌я▄). п²п╟п©я─п╦п╪п╣я─: gossip п▓я│п╣п╪ п©я─п╦п╡п╣я┌");
+S("п≤п╩п╦ я│п╬п╨я─п╟я┴п╣п╫п╫п╬ я┌п╟п╨:");
+S("\" п▓я│п╣п╪ п©я─п╦п╡п╣я┌");
+S("п▓п╟я│ я┐я│п╩я▀я┬п╟я┌ п╡п╬ п╡я│п╣п╪ п╦пЁя─п╬п╡п╬п╪ п°п╦я─п╣");
+S("tell - я│п╨п╟п╥п╟я┌я▄ п╦пЁя─п╬п╨я┐ (п©я─п╦п╡п╟я┌п╫п╬), п╫п╟п©я─п╦п╪п╣я─ tell prool hello, prool");
+S("п≤п╩п╦ я┌п╟п╨:");
+S("я│п╨п╟п╥п╟я┌я▄ prool п©я─п╦п╡п╣я┌ п÷я─я┐п╩я▌!");
+S("say - пЁп╬п╡п╬я─п╦я┌я▄ п╡п╫я┐я┌я─п╦ п╨п╬п╪п╫п╟я┌я▀. п²п╟п©я─п╦п╪п╣я─, say hello, guys!");
+S("п≤п╩п╦ я│п╬п╨я─п╟я┴п╣п╫п╫п╬:");
 S("' hello, guys!");
-S("(Вас услышат только в той комнате, где Вы находитесь)");
-S("look - look (или см)");
-S("Команды перемещения: с ю з в или north east west south");
+S("(п▓п╟я│ я┐я│п╩я▀я┬п╟я┌ я┌п╬п╩я▄п╨п╬ п╡ я┌п╬п╧ п╨п╬п╪п╫п╟я┌п╣, пЁп╢п╣ п▓я▀ п╫п╟я┘п╬п╢п╦я┌п╣я│я▄)");
+S("look - look (п╦п╩п╦ я│п╪)");
+S("п п╬п╪п╟п╫п╢я▀ п©п╣я─п╣п╪п╣я┴п╣п╫п╦я▐: я│ я▌ п╥ п╡ п╦п╩п╦ north east west south");
 S("");
-S("Примечание:");
-S("Так как мад только разрабатывается, то особого сервиса ПОКА нет!");
-S("Команды надо вводить только полностью, так как написано в хелпе");
-S("и в том же регистре букв. Между командой и параметром должен");
-S("быть только один пробел. Угадывания команд по первым буквам пока нет.");
-S("Редактирования строки пока нет. Воды и атмосферы тоже нет,");
-S("даже роботов пока нет");
+S("п÷я─п╦п╪п╣я┤п╟п╫п╦п╣:");
+S("п╒п╟п╨ п╨п╟п╨ п╪п╟п╢ я┌п╬п╩я▄п╨п╬ я─п╟п╥я─п╟п╠п╟я┌я▀п╡п╟п╣я┌я│я▐, я┌п╬ п╬я│п╬п╠п╬пЁп╬ я│п╣я─п╡п╦я│п╟ п÷п·п п░ п╫п╣я┌!");
+S("п п╬п╪п╟п╫п╢я▀ п╫п╟п╢п╬ п╡п╡п╬п╢п╦я┌я▄ я┌п╬п╩я▄п╨п╬ п©п╬п╩п╫п╬я│я┌я▄я▌, я┌п╟п╨ п╨п╟п╨ п╫п╟п©п╦я│п╟п╫п╬ п╡ я┘п╣п╩п©п╣");
+S("п╦ п╡ я┌п╬п╪ п╤п╣ я─п╣пЁп╦я│я┌я─п╣ п╠я┐п╨п╡. п°п╣п╤п╢я┐ п╨п╬п╪п╟п╫п╢п╬п╧ п╦ п©п╟я─п╟п╪п╣я┌я─п╬п╪ п╢п╬п╩п╤п╣п╫");
+S("п╠я▀я┌я▄ я┌п╬п╩я▄п╨п╬ п╬п╢п╦п╫ п©я─п╬п╠п╣п╩. пёпЁп╟п╢я▀п╡п╟п╫п╦я▐ п╨п╬п╪п╟п╫п╢ п©п╬ п©п╣я─п╡я▀п╪ п╠я┐п╨п╡п╟п╪ п©п╬п╨п╟ п╫п╣я┌.");
+S("п═п╣п╢п╟п╨я┌п╦я─п╬п╡п╟п╫п╦я▐ я│я┌я─п╬п╨п╦ п©п╬п╨п╟ п╫п╣я┌. п▓п╬п╢я▀ п╦ п╟я┌п╪п╬я│я└п╣я─я▀ я┌п╬п╤п╣ п╫п╣я┌,");
+S("п╢п╟п╤п╣ я─п╬п╠п╬я┌п╬п╡ п©п╬п╨п╟ п╫п╣я┌");
 S("");
 S("(Prool site: http://mud.kharkov.org/)");
 refresh();
@@ -303,6 +304,7 @@ int i;
 newline();
 switch(codetable)
 {
+case T_RAW: printw("%s\n", str); break;
 case T_UTF: for (i=0;i<BUFFERSIZE*2;i++) utfbuf[i]=0; koi_to_utf8(str,utfbuf); printw("%s\n",utfbuf); break;
 case T_ALT: for (i=0;i<BUFFERSIZE*2;i++) utfbuf[i]=0; koi_to_alt(str,utfbuf); printw("%s\n",utfbuf); break;
 case T_WIN: for (i=0;i<BUFFERSIZE*2;i++) utfbuf[i]=0; koi_to_win(str,utfbuf); printw("%s\n",utfbuf); break;
@@ -333,11 +335,11 @@ chtype ch;
 
 int pechal=0;
 
-codetable=T_UTF;
+codetable=T_RAW;
 
 #if 0
-printf("koi: тест русских КОИ восемь Эр\n");
-printf("utf: п╒п╣я│я┌ - пёп╒п╓ п╡п╬я│п╣п╪я▄");
+printf("koi: я┌п╣я│я┌ я─я┐я│я│п╨п╦я┘ п п·п≤ п╡п╬я│п╣п╪я▄ п╜я─\n");
+printf("utf: п©Б∙▓п©Б∙ёя▐Б■┌я▐Б■▄ - п©я▒п©Б∙▓п©Б∙⌠ п©Б∙║п©Б∙╛я▐Б■┌п©Б∙ёп©Б∙╙я▐Б√└");
 printf("\n\n");
 printf("press any key\n\n");
 getchar();
@@ -362,6 +364,7 @@ if (fconfig)
 		if (!strcmp(string,"test")) printf("TEST OK!\n");
 		else if (!strcmp(string,"client_codetable_utf")) codetable=T_UTF;
 		else if (!strcmp(string,"client_codetable_koi")) codetable=T_KOI;
+		else if (!strcmp(string,"client_codetable_raw")) codetable=T_RAW;
 		}
 	fclose(fconfig);
 	}
@@ -370,7 +373,9 @@ else
 	printf("bbs.cfg not open\n");
 	}
 
-setlocale(LC_CTYPE, ""); // for UTF-8 under ncurses
+setlocale(LC_ALL, ""); // for UTF-8 under ncurses
+//setlocale(LC_CTYPE, "");
+//setlocale(LC_ALL, "ru_RU.UTF-8");
 initscr();
 
 max_x=getmaxx(stdscr);
@@ -381,13 +386,13 @@ getyx(stdscr, y, x);
 for (i=0;i<max_y;i++) printw("\n");
 refresh();
 
-if (!has_colors()) printw("Цвета не поддерживаются!\n");
+if (!has_colors()) printw("п╕п╡п╣я┌п╟ п╫п╣ п©п╬п╢п╢п╣я─п╤п╦п╡п╟я▌я┌я│я▐!\n");
 start_color();
 
-// 1 цвет в палитре - белые символы на чёрном фоне
+// 1 я├п╡п╣я┌ п╡ п©п╟п╩п╦я┌я─п╣ - п╠п╣п╩я▀п╣ я│п╦п╪п╡п╬п╩я▀ п╫п╟ я┤я▒я─п╫п╬п╪ я└п╬п╫п╣
 init_pair(1, COLOR_WHITE, COLOR_BLACK);
 
-// 2 цвет в палитре - зелёные символы на фоне
+// 2 я├п╡п╣я┌ п╡ п©п╟п╩п╦я┌я─п╣ - п╥п╣п╩я▒п╫я▀п╣ я│п╦п╪п╡п╬п╩я▀ п╫п╟ я└п╬п╫п╣
 init_pair(2, COLOR_GREEN, COLOR_BLACK);
 init_pair(3, COLOR_RED, COLOR_BLACK);
 
@@ -397,23 +402,33 @@ pid=getpid();
 sprintf(pids,"%i",pid);
 printw("pid=%s\n", pids);
 newline();
+//printw("%lc\n", L'Б┌╛'); 
+printw("%ls\n", L"Б┌╛"); 
+
+for (int i = 0; i < 10; i++)
+{
+  printw("%c %lc\n", '0' + i, L'О╪░' + i);
+  newline();
+}
+
+newline();
 //printw("argc=%i", argc);
 //printw("argv=%s", argv[0]);
 //printw("env=%s", env[0]);
 
-ch = 'w' | COLOR_PAIR(1); // символ с цветом 1 из палитры
+ch = 'w' | COLOR_PAIR(1); // я│п╦п╪п╡п╬п╩ я│ я├п╡п╣я┌п╬п╪ 1 п╦п╥ п©п╟п╩п╦я┌я─я▀
 
 // attron(COLOR_PAIR(2));
 // attron(A_REVERSE);
 
 version();
 S("Use help for help!");
-S("Используйте команду помощь для получения помощи");
+S("п≤я│п©п╬п╩я▄п╥я┐п╧я┌п╣ п╨п╬п╪п╟п╫п╢я┐ п©п╬п╪п╬я┴я▄ п╢п╩я▐ п©п╬п╩я┐я┤п╣п╫п╦я▐ п©п╬п╪п╬я┴п╦");
 // attron(A_UNDERLINE);
 S("(site: http://mud.kharkov.org)");
 #if 0 // test of UTF-8
-S("koi: тест русских\n\n");
-S("utf: я┌п╣я│я│я│я│ я┌п╣я│я┌");
+S("koi: я┌п╣я│я┌ я─я┐я│я│п╨п╦я┘\n\n");
+S("utf: я▐Б■▄п©Б∙ёя▐Б■┌я▐Б■┌я▐Б■┌я▐Б■┌ я▐Б■▄п©Б∙ёя▐Б■┌я▐Б■▄");
 S("\n\n");
 #endif
 // attroff(A_UNDERLINE);
@@ -428,13 +443,13 @@ refresh();
 
 if (name[0]==0) strcpy(name, "Enter");
 
-// регистрация
+// я─п╣пЁп╦я│я┌я─п╟я├п╦я▐
 command("LOGON", name, 0);
 
 halfdelay(1);
 // noecho();
 
-// тест, запущен ли сервер
+// я┌п╣я│я┌, п╥п╟п©я┐я┴п╣п╫ п╩п╦ я│п╣я─п╡п╣я─
 usleep(TICK+1);
 		if ((dd=opendir(CMD_DIR))!=NULL)
 		while((nextfile=readdir(dd))!=NULL)
@@ -458,7 +473,7 @@ usleep(TICK+1);
 			}
 		closedir(dd);
 
-// определение своего IP
+// п╬п©я─п╣п╢п╣п╩п╣п╫п╦п╣ я│п╡п╬п╣пЁп╬ IP
 	{i=0;
 	while(env[i])
 		{
@@ -580,28 +595,29 @@ if((pp=strchr(p0,' '))!=NULL)
 else {params=0; p2=0;}
 
 if(buf[0]==0) ;
-else if ((!strcmp(p0,"quit")) || (!strcmp(p0,"exit")) || (!strcmp(p0,"конец"))
-|| (!strcmp(p0,"выход")))
+else if ((!strcmp(p0,"quit")) || (!strcmp(p0,"exit")) || (!strcmp(p0,"п╨п╬п╫п╣я├"))
+|| (!strcmp(p0,"п╡я▀я┘п╬п╢")))
 	{command ("EXIT", 0, 0); trigger_exit=1; if (pechal) {endwin(); return 3;} }
-else if ((!strcmp(p0,"help")) || (!strcmp(p0,"помощь"))) {help(); }
+else if ((!strcmp(p0,"help")) || (!strcmp(p0,"п©п╬п╪п╬я┴я▄"))) {help(); }
 else if (!strcmp(p0,"koi")) {codetable=T_KOI; S("Set KOI-8R codetable");}
 else if (!strcmp(p0,"utf")) {codetable=T_UTF; S("Set UTF-8 codetable");}
 else if (!strcmp(p0,"alt")) {codetable=T_ALT; S("Set ALT codetable");}
 else if (!strcmp(p0,"win")) {codetable=T_WIN; S("Set WIN codetable");}
+else if (!strcmp(p0,"raw")) {codetable=T_RAW; S("Set raw codetable");}
 else if (!strcmp(p0,"ping")) {command("PING", 0, 0); }
 else if (!strcmp(p0,"reboot")) {command("REBOOT", 0, 0); }
 else if (!strcmp(p0,"shutdown")) {command("SHUTDOWN", 0, 0); }
-else if ((!strcmp(p0,"who")) || (!strcmp(p0,"кто"))) {command("WHO", 0, 0); }
-else if ((!strcmp(p0,"look")) || (!strcmp(p0,"см"))) {command("LOOK", 0, 0); }
-else if ((!strcmp(p0,"north")) || (!strcmp(p0,"с"))) {command("north", 0, 0); }
-else if ((!strcmp(p0,"south")) || (!strcmp(p0,"ю"))) {command("south", 0, 0); }
-else if ((!strcmp(p0,"west")) || (!strcmp(p0,"з"))) {command("west", 0, 0); }
-else if ((!strcmp(p0,"east")) || (!strcmp(p0,"в"))) {command("east", 0, 0); }
-else if ((!strcmp(p0,"up")) || (!strcmp(p0,"вв"))) {command("up", 0, 0); }
-else if ((!strcmp(p0,"down")) || (!strcmp(p0,"вн"))) {command("down", 0, 0); }
+else if ((!strcmp(p0,"who")) || (!strcmp(p0,"п╨я┌п╬"))) {command("WHO", 0, 0); }
+else if ((!strcmp(p0,"look")) || (!strcmp(p0,"я│п╪"))) {command("LOOK", 0, 0); }
+else if ((!strcmp(p0,"north")) || (!strcmp(p0,"я│"))) {command("north", 0, 0); }
+else if ((!strcmp(p0,"south")) || (!strcmp(p0,"я▌"))) {command("south", 0, 0); }
+else if ((!strcmp(p0,"west")) || (!strcmp(p0,"п╥"))) {command("west", 0, 0); }
+else if ((!strcmp(p0,"east")) || (!strcmp(p0,"п╡"))) {command("east", 0, 0); }
+else if ((!strcmp(p0,"up")) || (!strcmp(p0,"п╡п╡"))) {command("up", 0, 0); }
+else if ((!strcmp(p0,"down")) || (!strcmp(p0,"п╡п╫"))) {command("down", 0, 0); }
 else if ((!strcmp(p0,"gossip"))||(!strcmp(p0,"\""))) {command("GOSSIP", params, 0); }
 else if ((!strcmp(p0,"say"))||(!strcmp(p0,"'"))) {command("SAY", params, 0); }
-else if ((!strcmp(p0,"tell"))||(!strcmp(p0,"сказать"))) {command("TELL", p1, p2); }
+else if ((!strcmp(p0,"tell"))||(!strcmp(p0,"я│п╨п╟п╥п╟я┌я▄"))) {command("TELL", p1, p2); }
 else if (!strcmp(p0,"env"))
 	{i=0;
 	while(env[i])
